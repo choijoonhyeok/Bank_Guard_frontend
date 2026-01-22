@@ -6,7 +6,7 @@
     </header>
 
     <section class="menu">
-      <button @click="goEmployee">사원 모드</button>
+      <button @click="goEmployeeMainPage">사원 모드</button>
       <button @click="goAdmin">관리자 모드</button>
       <button @click="goCustomer">고객 모드</button>
     </section>
@@ -18,7 +18,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const goEmployee = () => {
+const goEmployeeMainPage = () => {
   router.push('/employee');
 };
 
