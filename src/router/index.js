@@ -6,11 +6,13 @@ import AccountTransaction from '../views/Employee/AccountTransaction.vue';
 import RequestList from '../views/Employee/RequestList.vue';
 import MyActivityLog from '../views/Employee/MyActivityLog.vue';
 import Notice from '../views/Employee/Notice.vue';
+import DefaultLayout from '../layouts/DefaultLayout.vue';
 
 const routes = [
   { path: '/', component: Main },
   {
     path: '/employee',
+    component: DefaultLayout,
     children: [
       { path: '', component: EmployeeMain }, // /employee
       { path: 'customerSearch', component: CustomerSearch },
