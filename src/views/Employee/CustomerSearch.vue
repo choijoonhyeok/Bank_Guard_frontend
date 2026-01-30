@@ -23,7 +23,8 @@
             <td>{{ customer.phone }}</td>
             <td>{{ customer.grade }}</td>
             <td>
-              <button @click="goDetail(customer.id)">조회</button>
+              <button @click="goDetail(customer.id)">조회하기</button>
+              <button @click="goDetail(customer.id)">확인하기</button>
             </td>
           </tr>
         </tbody>
