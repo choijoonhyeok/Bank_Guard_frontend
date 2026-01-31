@@ -1,48 +1,44 @@
 <template>
-  <div class="main">
-    <header class="header">
-      <h1>고객 조회 페이지</h1>
-    </header>
+  <div>
+    <h2>사원 조회</h2>
 
-    <!-- 고객 리스트 -->
-    <section class="customer-list">
-      <table>
-        <thead>
-          <tr>
-            <th>고객번호</th>
-            <th>이름</th>
-            <th>전화번호</th>
-            <th>등급</th>
-            <th>상세</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="customer in customers" :key="customer.id">
-            <td>{{ customer.id }}</td>
-            <td>{{ customer.name }}</td>
-            <td>{{ customer.phone }}</td>
-            <td>{{ customer.grade }}</td>
-            <td>
-              <button @click="goDetail(customer.id)">조회하기</button>
-              <button @click="goDetail(customer.id)">확인하기</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+    <div v-if="loading">불러오는 중...</div>
+
+    <table v-else>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>사번</th>
+          <th>이름</th>
+          <th>부서</th>
+          <th>직급</th>
+          <th>상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="emp in employees" :key="emp.employeeId">
+          <td>{{ emp.employeeId }}</td>
+          <td>{{ emp.empNo }}</td>
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.department }}</td>
+          <td>{{ emp.position }}</td>
+          <td>{{ emp.status }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { getCustomers } from '@/api/employee';
+import { getEmployees } from '@/api/employee';
 
 const router = useRouter();
 
 /* 더미 고객 데이터 */
-const customers = ref([]);
-
+const employees = ref([]);
+const loading = ref(true);
 /* 고객 상세 페이지 이동 */
 const goDetail = (id) => {
   router.push(`/customer/${id}`);
@@ -50,7 +46,7 @@ const goDetail = (id) => {
 
 onMounted(async () => {
   try {
-    const res = await getCustomers();
+    const res = await getEmployees();
     customers.value = res.data;
     console.log('고객 리스트:', res.data);
   } catch (error) {
