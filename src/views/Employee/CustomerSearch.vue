@@ -34,22 +34,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { getCustomers } from '@/api/employee';
 
 const router = useRouter();
 
 /* 더미 고객 데이터 */
-const customers = ref([
-  { id: 1001, name: '김철수', phone: '010-1234-5678', grade: 'VIP' },
-  { id: 1002, name: '이영희', phone: '010-2222-3333', grade: '일반' },
-  { id: 1003, name: '박민수', phone: '010-9876-5432', grade: '우수' },
-]);
+const customers = ref([]);
 
 /* 고객 상세 페이지 이동 */
 const goDetail = (id) => {
   router.push(`/customer/${id}`);
 };
+
+onMounted(async () => {
+  try {
+    const res = await getCustomers();
+    customers.value = res.data;
+    console.log('고객 리스트:', res.data);
+  } catch (error) {
+    console.error('고객 조회 실패', error);
+  }
+});
 </script>
 
 <style scoped>

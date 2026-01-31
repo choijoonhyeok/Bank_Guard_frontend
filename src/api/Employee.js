@@ -5,5 +5,5 @@ const api = axios.create({
 });
 
 export const getCustomers = () => {
-  return api.get('/employee');
+  return api.get('/employees');
 };
